@@ -9,8 +9,9 @@ RSpec.describe User, type: :model do
   it {should have_secure_password}
   # expect uniq email
   it 'should have uniq email' do
-    user = User.create!(nickname: 'test', email: 'test@mail.com', password: 'test')
-    user_clone = User.new(nickname: 'test2', email: 'test@mail.com', password: 'test')
+    mail = 'test@mail.com'
+    user = create(:user, email: mail)
+    user_clone = build(:user, email: mail)
     expect(user_clone.valid?).to eq false
   end
 end
