@@ -3,5 +3,5 @@ class User < ApplicationRecord
   validates_presence_of :nickname, :email, :password_digest
   validates :password_digest, presence: true, allow_nil: true
   validates_uniqueness_of :email, case_sensitive: true
-  has_many :posts
+  has_many :posts, inverse_of: :user
 end
