@@ -1,9 +1,14 @@
 class Api::V1::ApplicationController < JSONAPI::ResourceController
   include SerializerHelper
-  rescue_from ActiveRecord::RecordNotFound do
-    render json: {error: 'Record not found'}, status: :not_found
-  end
-  rescue_from JSONAPI::Exceptions::InvalidPageValue do
-    render json: {error: 'Wrong page values'}, status: :unprocessable_entity
+  include ExceptionHandler
+  # called before every action on controllers
+  before_action :authorize_request
+  attr_reader :current_user
+
+  private
+
+  # Check for valid request token and return user
+  def authorize_request
+    @current_user = (AuthorizeApiRequest.new(request.headers).call)[:user]
   end
 end

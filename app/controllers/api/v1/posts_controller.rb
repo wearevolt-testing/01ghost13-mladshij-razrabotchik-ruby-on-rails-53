@@ -1,9 +1,7 @@
 class Api::V1::PostsController < Api::V1::ApplicationController
   def create
-    #TODO Add registration
-    user = User.create!(nickname: 'test', password: 'test', email:'test@mail.com')
     @post = Post.new(post_params)
-    @post.user_id = user.id
+    @post.user_id = @current_user.id
     if @post.save
       render json: serialize(@post), status: :created
     else

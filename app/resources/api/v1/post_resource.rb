@@ -1,5 +1,6 @@
-class Api::V1::PostResource < JSONAPI::Resource
+class Api::V1::PostResource < Api::V1::ApplicationResource
   attributes :title, :body, :published_at, :author_nickname
+  model_name 'Post'
   has_one :user
   def author_nickname
     @model.user.nickname
