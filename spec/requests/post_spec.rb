@@ -161,4 +161,33 @@ RSpec.describe 'Posts API', type: :request do
       end
     end
   end
+
+  describe 'POST /api/v1/reports/by_author.json' do
+    let(:valid_request) do
+      {
+          start_date: 2.months.ago,
+          end_date: 1.day.ago,
+          email: 'foo@mail.com'
+      }.to_json
+    end
+    let(:users) {create_list(:users_with_posts_and_comments, 20, posts_max: 30, comments_max: 50)}
+    context 'when user is logged' do
+      before {post '/api/v1/reports/by_author.json', headers: valid_headers, params: valid_request}
+      it 'returns 200 status' do
+        expect(response).to have_http_status(:ok)
+      end
+      it 'contains special message' do
+        expect(json['message']).to match('Report generation started')
+      end
+    end
+    context 'when user is not logged' do
+      before {post '/api/v1/reports/by_author.json',  params: valid_request}
+      it 'returns 401 status' do
+        expect(response).to have_http_status(:unauthorized)
+      end
+      it 'returns errors' do
+        expect(json['error']).not_to be_empty
+      end
+    end
+  end
 end
