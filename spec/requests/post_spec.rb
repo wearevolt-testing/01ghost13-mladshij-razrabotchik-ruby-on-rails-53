@@ -118,8 +118,7 @@ RSpec.describe 'Posts API', type: :request do
   end
 
   describe 'GET /posts.json' do
-    let!(:posts) {create(:user_with_posts, posts_count: 20)}
-    let(:user) {create(:user)}
+    let!(:user) {create(:user_with_posts, posts_count: 20)}
 
     context 'when logged and has posts' do
       before {get "/api/v1/posts?page[number]=#{page}&page[size]=#{per_page}", headers: valid_headers}
