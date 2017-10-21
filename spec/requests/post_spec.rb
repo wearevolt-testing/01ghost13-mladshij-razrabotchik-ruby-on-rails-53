@@ -171,6 +171,7 @@ RSpec.describe 'Posts API', type: :request do
       }.to_json
     end
     let(:users) {create_list(:users_with_posts_and_comments, 20, posts_max: 30, comments_max: 50)}
+    let(:user) {users.first}
     context 'when user is logged' do
       before {post '/api/v1/reports/by_author.json', headers: valid_headers, params: valid_request}
       it 'returns 200 status' do

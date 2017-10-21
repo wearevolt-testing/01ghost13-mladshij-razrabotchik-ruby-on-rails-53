@@ -4,11 +4,12 @@ RSpec.describe Post, type: :model do
   # Association test
   # Post should've author
   it {should belong_to(:user)}
-
+  it {should have_many(:comments)}
   # Validation tests
   # columns :title, :body, :author should be present
   it {should validate_presence_of(:title)}
   it {should validate_presence_of(:body)}
+  it {should validate_presence_of(:user_id)}
   it 'should update date' do
     new_post = create(:post)
     date = new_post.updated_at

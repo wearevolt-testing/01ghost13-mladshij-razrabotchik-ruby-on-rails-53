@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   # Association test
   it {should have_many(:posts)}
+  it {should have_many(:comments)}
   # Validation tests
   # columns should be present
   it {should validate_presence_of(:nickname)}

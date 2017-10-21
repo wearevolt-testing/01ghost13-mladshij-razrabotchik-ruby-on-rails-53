@@ -11,7 +11,7 @@ FactoryGirl.define do
         create_list(:post, evaluator.posts_count, user: user)
       end
     end
-    factory :user_with_posts_and_answers do
+    factory :users_with_posts_and_comments do
       transient do
         posts_max 10
         comments_max 10
@@ -21,7 +21,7 @@ FactoryGirl.define do
         posts = create_list(:post, generator.rand(evaluator.posts_max), user: user)
         comments = []
         posts.each do |post|
-          comments << create_list(:comment, generator.rand(comments_max), post: post)
+          comments << create_list(:comment, generator.rand(evaluator.comments_max), user: user, post: post)
         end
       end
     end
