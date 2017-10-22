@@ -59,3 +59,4 @@ gem 'jsonapi-resources'
 
 gem 'pg', group: :production
 #gem 'bootstrap-sass', '~>3.3.7'
+gem 'sidekiq'
