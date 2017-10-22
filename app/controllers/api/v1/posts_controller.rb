@@ -16,7 +16,8 @@ class Api::V1::PostsController < Api::V1::ApplicationController
 
   def index
     @posts = []
-    posts = Api::V1::PostResource.apply_sort Post.all, Api::V1::PostResource.default_sort, nil
+    # Preparing users posts
+    posts = Api::V1::PostResource.apply_sort @current_user.posts, Api::V1::PostResource.default_sort, nil
     posts = JSONAPI::Paginator.paginator_for(:paged).new(index_params[:page]).apply(posts, nil)
     posts.each do |el|
       @posts << Api::V1::PostResource.new(el, nil)
