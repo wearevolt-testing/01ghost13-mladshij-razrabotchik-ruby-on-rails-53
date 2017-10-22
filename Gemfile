@@ -40,13 +40,13 @@ group :development do
 end
 
 group :test do
-  gem 'factory_girl_rails', '~> 4.0'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'database_cleaner'
 end
 
 # for report not in test
 gem 'faker'
+gem 'factory_girl_rails', '~> 4.0'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
