@@ -176,6 +176,7 @@ DEPENDENCIES
   pg
   puma (~> 3.0)
   rails (~> 5.1)
+  redis
   rspec-rails (~> 3.5)
   shoulda-matchers (~> 3.1)
   sidekiq
