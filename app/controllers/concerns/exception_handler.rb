@@ -6,6 +6,7 @@ module ExceptionHandler
   class InvalidToken < StandardError; end
   class ExpiredSignature < StandardError; end
   class AuthenticationError < StandardError; end
+  class JobError < StandardError; end
   included do
     rescue_from ActiveRecord::RecordNotFound do
       render json: {error: 'Record not found'}, status: :not_found
@@ -18,6 +19,9 @@ module ExceptionHandler
     # Authentication errors
     rescue_from ExceptionHandler::MissingToken, with: :wrong_token
     rescue_from ExceptionHandler::InvalidToken, with: :wrong_token
+    rescue_from ExceptionHandler::JobError do
+      render json: {error: 'Error while performing a task'}, status: :unprocessable_entity
+    end
   end
   private
   def status_422

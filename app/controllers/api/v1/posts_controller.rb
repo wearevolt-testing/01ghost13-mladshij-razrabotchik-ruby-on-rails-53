@@ -30,6 +30,11 @@ class Api::V1::PostsController < Api::V1::ApplicationController
     render json: @posts, status: :ok
   end
 
+  def by_author
+    ReportByAuthorJob.perform_later(params[:email], params[:start_date], params[:end_date])
+    render json: {message: 'Report generation started'}, status: :ok
+  end
+
   private
   def find_post
     @post = Post.find(params[:id])

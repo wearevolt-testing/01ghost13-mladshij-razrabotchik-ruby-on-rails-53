@@ -1,0 +1,4 @@
+<%= 'Nickname'+' '*5+'Email'+' '*5+'Count of posts'+' '*5+'Count of comments' %>
+<% @users.each do |user| %>
+<%= "#{user.nickname}"+' '*5+"#{user.email}"+' '*5+"#{user.posts_count}"+' '*5+"#{user.comments_count}" %>
+<% end %>
