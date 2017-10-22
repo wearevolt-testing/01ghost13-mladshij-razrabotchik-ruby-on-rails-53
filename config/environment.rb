@@ -16,11 +16,11 @@ if Rails.env.development?
   }
 else
   ActionMailer::Base.smtp_settings = {
-      :address        => 'smtp.gmail.com',
-      :domain         => 'mail.google.com',
-      :port           => 587,
-      :user_name      => ENV['MAIL_USER'],
-      :password       => ENV['MAIL_PASSWORD'],
+      :address        => ENV['MAILGUN_SMTP_SERVER'],
+      :domain         => ENV['MAILGUN_DOMAIN'],
+      :port           => ENV['MAILGUN_SMTP_PORT'],
+      :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+      :password       => ENV['MAILGUN_SMTP_PASSWORD'],
       :authentication => :plain,
       :enable_starttls_auto => true
   }
