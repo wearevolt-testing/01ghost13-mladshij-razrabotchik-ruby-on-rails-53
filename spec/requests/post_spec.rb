@@ -161,4 +161,57 @@ RSpec.describe 'Posts API', type: :request do
       end
     end
   end
+
+  describe 'POST /api/v1/reports/by_author.json' do
+    let(:valid_request) do
+      {
+          start_date: 2.months.ago,
+          end_date: 1.day.ago,
+          email: 'foo@mail.com'
+      }.to_json
+    end
+    let(:invalid_request) do
+      {
+          start_date: 1.day.ago,
+          end_date: 2.months.ago,
+          email: 'foo@mail.com'
+      }.to_json
+    end
+    let(:users) {create_list(:users_with_posts_and_comments, 10, posts_max: 5, comments_max: 10)}
+    let(:user) {users.first}
+    before do
+      perform_enqueued_jobs do
+        post '/api/v1/reports/by_author', headers: valid_headers, params: request
+      end
+    end
+    context 'when user is logged' do
+      context 'and request is valid' do
+        let(:request) {valid_request}
+        it 'returns 200 status' do
+          expect(response).to have_http_status(:ok)
+        end
+        it 'contains special message' do
+          expect(json['message']).to match('Report generation started')
+        end
+      end
+      context 'and request is invalid' do
+        let(:request) {invalid_request}
+        it 'returns 422 status' do
+          expect(response).to have_http_status(422)
+        end
+        it 'contains error message' do
+          expect(json['error']).to match('Error while performing a task')
+        end
+      end
+    end
+    context 'when user is not logged' do
+      let(:valid_headers) {nil}
+      it 'returns errors' do
+        expect(json['error']).to match('Wrong Token')
+      end
+      it 'returns 401 status' do
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+  end
 end

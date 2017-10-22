@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       jsonapi_resources :posts
       post 'login', to: 'authentication#authenticate'
       post 'signup', to: 'users#create'
+      post 'reports/by_author', to: 'posts#by_author'
     end
   end
 end

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<table>
+  <thead>
+    <tr>
+      <td>Nickname</td>
+      <td>Email</td>
+      <td>Count of posts</td>
+      <td>Count of comments</td>
+    </tr>
+  </thead>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.nickname %></td>
+      <td><%= user.email %></td>
+      <td><%= user.posts_count %></td>
+      <td><%= user.comments_count %></td>
+    </tr>
+  <% end %>
+</table>
+</body>
+</html>
